@@ -412,6 +412,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# Private Images
+resources/
+
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
