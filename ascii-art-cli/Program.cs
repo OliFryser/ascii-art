@@ -1,34 +1,34 @@
 ﻿using SkiaSharp;
 
-const string density = "        .:-=+*#%@";
-const string filename = "../resources/baby.jpg";
-int newHeight = 50;
-int newWidth = (int) (newHeight * 2.5); 
+const string DENSITY = "        .:-=+*#%@";
+const string FILENAME = "../resources/baby.jpg";
+const int NEW_HEIGHT = 50;
+const int NEW_WIDTH = (int)(NEW_HEIGHT * 2.5);
 
-var stream = File.OpenRead(filename);
+var stream = File.OpenRead(FILENAME);
 var bitmap = SKBitmap.Decode(stream);
-var resizedBitmap = new SKBitmap(new SKImageInfo(newWidth, newWidth));
+var resizedBitmap = new SKBitmap(new SKImageInfo(NEW_WIDTH, NEW_WIDTH));
 var canvas = new SKCanvas(resizedBitmap);
 var paint = new SKPaint();
-canvas.DrawBitmap(bitmap, new SKRect(0, 0, newWidth, newHeight), paint);
+canvas.DrawBitmap(bitmap, new SKRect(0, 0, NEW_WIDTH, NEW_HEIGHT), paint);
 
-for (int y = 0; y < newHeight; y++)
+for (int y = 0; y < NEW_HEIGHT; y++)
 {
-    string result = "";
-    for (int x = 0; x < newWidth; x++)
+    string line = "";
+    for (int x = 0; x < NEW_WIDTH; x++)
     {
-        SKColor pixelColor = resizedBitmap.GetPixel(x,y);
+        SKColor pixelColor = resizedBitmap.GetPixel(x, y);
 
         byte red = pixelColor.Red;
         byte green = pixelColor.Green;
         byte blue = pixelColor.Blue;
-        
-        float average = (red + green + blue) / 3;
-        int densityIndex = (int) Math.Floor(average.Remap((0, 255), (0, density.Length-1)));
 
-        result += density[densityIndex];
-        
+        float average = (red + green + blue) / 3;
+        int densityIndex = (int)Math.Floor(average.Remap((0, 255), (0, DENSITY.Length - 1)));
+
+        line += DENSITY[densityIndex];
+
     }
-    
-    Console.WriteLine(result);
+
+    Console.WriteLine(line);
 }
