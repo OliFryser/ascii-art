@@ -6,6 +6,7 @@ public static class CommandLineParser
     public static int Contrast { get; set; }
     public static bool Invert { get; set; }
     public static bool AlternativeDensity { get; set; }
+    public static int WebcamIndex { get; private set; }
 
     public static bool Parse(string[] args)
     {
@@ -44,20 +45,35 @@ public static class CommandLineParser
     }
     private static void ParseFlag(string flag, string value)
     {
-        if (flag == "-f" || flag == "--filepath")
+        switch (flag)
         {
-            FilePath = value;
-        }
-        else if (flag == "-d" || flag == "--density")
-        {
-            Density = value;
-        }
-        else if (flag == "-c" || flag == "--contrast")
-        {
-            if (int.TryParse(value, out int result))
-            {
-                Contrast = result;
-            }
+            case "-f":
+            case "--filepath":
+                FilePath = value;
+                break;
+            case "-d":
+            case "--density":
+                Density = value;
+                break;
+            case "-c":
+            case "--contrast":
+                {
+                    if (int.TryParse(value, out int result))
+                    {
+                        Contrast = result;
+                    }
+
+                    break;
+                }
+            case "-w":
+            case "--webcam":
+                {
+                    if (int.TryParse(value, out int result))
+                    {
+                        WebcamIndex = result;
+                    }
+                    break;
+                }
         }
     }
 

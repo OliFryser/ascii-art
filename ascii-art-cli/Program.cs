@@ -1,5 +1,6 @@
 ﻿using Ascii;
 using CommandLine;
+using Webcam;
 
 string filePath = "../resources/baby.jpg";
 string density = " .:-=+*#%@";
@@ -28,11 +29,33 @@ if (hasArgs)
     }
 }
 
-Image image = AsciiConverter.RescaleImage(filePath, Console.WindowWidth, Console.WindowHeight - 1);
-AsciiImage asciiImage = AsciiConverter.ImageToAscii(image.Bitmap, density, (image.Width, image.Height));
-
-for (int i = 0; i < asciiImage.Height; i++)
+if (CommandLineParser.WebcamIndex == 0)
 {
-    string line = asciiImage.GetRow(i);
-    Console.WriteLine(line);
+    Image originalImage = AsciiConverter.FileToImage(filePath);
+    Image resizedImage = AsciiConverter.RescaleImage(originalImage, Console.WindowWidth, Console.WindowHeight - 1);
+    AsciiImage asciiImage = AsciiConverter.ImageToAscii(resizedImage.Bitmap, density, (resizedImage.Width, resizedImage.Height));
+
+    for (int i = 0; i < asciiImage.Height; i++)
+    {
+        string line = asciiImage.GetRow(i);
+        Console.WriteLine(line);
+    }
+    return;
+}
+
+
+WebcamAcces webcamAcces = new(CommandLineParser.WebcamIndex);
+while (true)
+{
+    Image originalImage = webcamAcces.GetSnapshot();
+    //Image originalImage = AsciiConverter.FileToImage(filePath);
+    Image resizedImage = AsciiConverter.RescaleImage(originalImage, Console.WindowWidth, Console.WindowHeight - 1);
+    AsciiImage asciiImage = AsciiConverter.ImageToAscii(resizedImage.Bitmap, density, (resizedImage.Width, resizedImage.Height));
+
+    for (int i = 0; i < asciiImage.Height; i++)
+    {
+        string line = asciiImage.GetRow(i);
+        Console.WriteLine(line);
+    }
+    Thread.Sleep(100);
 }

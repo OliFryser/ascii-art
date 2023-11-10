@@ -29,17 +29,19 @@ public static class AsciiConverter
         return asciiImage;
     }
 
-    public static Image RescaleImage(string filepath, int terminalWidth, int terminalHeight)
+    public static Image FileToImage(string filePath)
     {
-        //using var stream = File.OpenRead(filepath);
-        using var bitmap = SKBitmap.Decode(filepath) ?? throw new FileLoadException();
-        (int newWidth, int newHeight) = GetScaledDimensions((terminalWidth, terminalHeight), (bitmap!.Width, bitmap!.Height));
+        SKBitmap bitmap = SKBitmap.Decode(filePath);
+        return new Image { Width = bitmap.Width, Height = bitmap.Height, Bitmap = bitmap };
+    }
 
+    public static Image RescaleImage(Image image, int terminalWidth, int terminalHeight)
+    {
+        (int newWidth, int newHeight) = GetScaledDimensions((terminalWidth, terminalHeight), (image.Width, image.Height));
         var resizedBitmap = new SKBitmap(new SKImageInfo(newWidth, newWidth));
         using var canvas = new SKCanvas(resizedBitmap);
         using var paint = new SKPaint();
-        canvas.DrawBitmap(bitmap, new SKRect(0, 0, newWidth, newHeight), paint);
-
+        canvas.DrawBitmap(image.Bitmap, new SKRect(0, 0, newWidth, newHeight), paint);
         return new Image { Width = newWidth, Height = newHeight, Bitmap = resizedBitmap };
     }
 
