@@ -6,6 +6,7 @@ public static class CommandLineParser
     public static int Contrast { get; set; }
     public static bool Invert { get; set; }
     public static bool AlternativeDensity { get; set; }
+    public static bool WebcamMode {get; private set; }
     public static int WebcamIndex { get; private set; }
 
     public static bool Parse(string[] args)
@@ -71,6 +72,7 @@ public static class CommandLineParser
                     if (int.TryParse(value, out int result))
                     {
                         WebcamIndex = result;
+                        WebcamMode = true;
                     }
                     break;
                 }

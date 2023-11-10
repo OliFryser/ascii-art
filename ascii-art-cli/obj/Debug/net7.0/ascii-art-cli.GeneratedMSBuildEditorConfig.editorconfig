@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ascii_art_cli
-build_property.ProjectDir = C:\Users\olive\hobby\ascii-art\ascii-art-cli\
+build_property.ProjectDir = C:\Users\olive\projects\ascii-art\ascii-art-cli\

@@ -29,7 +29,7 @@ if (hasArgs)
     }
 }
 
-if (CommandLineParser.WebcamIndex == 0)
+if (!CommandLineParser.WebcamMode)
 {
     Image originalImage = AsciiConverter.FileToImage(filePath);
     Image resizedImage = AsciiConverter.RescaleImage(originalImage, Console.WindowWidth, Console.WindowHeight - 1);
