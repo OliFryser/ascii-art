@@ -243,25 +243,28 @@
     ]
   },
   "packageFolders": {
-    "/home/olifrys/.nuget/packages/": {}
+    "C:\\Users\\olive\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/olifrys/hobby/ascii-art/ascii-art-cli/ascii-art-cli.csproj",
+      "projectUniqueName": "C:\\Users\\olive\\hobby\\ascii-art\\ascii-art-cli\\ascii-art-cli.csproj",
       "projectName": "ascii-art-cli",
-      "projectPath": "/home/olifrys/hobby/ascii-art/ascii-art-cli/ascii-art-cli.csproj",
-      "packagesPath": "/home/olifrys/.nuget/packages/",
-      "outputPath": "/home/olifrys/hobby/ascii-art/ascii-art-cli/obj/",
+      "projectPath": "C:\\Users\\olive\\hobby\\ascii-art\\ascii-art-cli\\ascii-art-cli.csproj",
+      "packagesPath": "C:\\Users\\olive\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\olive\\hobby\\ascii-art\\ascii-art-cli\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/olifrys/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\olive\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://www.nuget.org/api/v2/": {}
       },
       "frameworks": {
         "net7.0": {
@@ -304,7 +307,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.113/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
