@@ -1,34 +1,38 @@
-﻿using SkiaSharp;
+﻿using Ascii;
+using CommandLine;
 
-const string DENSITY = "        .:-=+*#%@";
-const string FILENAME = "../resources/baby.jpg";
-const int NEW_HEIGHT = 50;
-const int NEW_WIDTH = (int)(NEW_HEIGHT * 2.5);
+string filePath = "../resources/baby.jpg";
+string density = " .:-=+*#%@";
+string alternativeDensity = """`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@""";
 
-var stream = File.OpenRead(FILENAME);
-var bitmap = SKBitmap.Decode(stream);
-var resizedBitmap = new SKBitmap(new SKImageInfo(NEW_WIDTH, NEW_WIDTH));
-var canvas = new SKCanvas(resizedBitmap);
-var paint = new SKPaint();
-canvas.DrawBitmap(bitmap, new SKRect(0, 0, NEW_WIDTH, NEW_HEIGHT), paint);
+bool hasArgs = CommandLineParser.Parse(args);
 
-for (int y = 0; y < NEW_HEIGHT; y++)
+if (hasArgs)
 {
-    string line = "";
-    for (int x = 0; x < NEW_WIDTH; x++)
+    if (CommandLineParser.FilePath is not null) filePath = CommandLineParser.FilePath;
+    if (CommandLineParser.Density is not null) density = CommandLineParser.Density;
+    if (CommandLineParser.Invert)
     {
-        SKColor pixelColor = resizedBitmap.GetPixel(x, y);
-
-        byte red = pixelColor.Red;
-        byte green = pixelColor.Green;
-        byte blue = pixelColor.Blue;
-
-        float average = (red + green + blue) / 3;
-        int densityIndex = (int)Math.Floor(average.Remap((0, 255), (0, DENSITY.Length - 1)));
-
-        line += DENSITY[densityIndex];
-
+        density = density.Reverse();
     }
+    if (CommandLineParser.AlternativeDensity)
+    {
+        density = alternativeDensity;
+    }
+    if (CommandLineParser.Contrast != 0)
+    {
+        for (int i = 0; i < CommandLineParser.Contrast; i++)
+        {
+            density = " " + density;
+        }
+    }
+}
 
+Image image = AsciiConverter.RescaleImage(filePath, Console.WindowWidth, Console.WindowHeight - 1);
+AsciiImage asciiImage = AsciiConverter.ImageToAscii(image.Bitmap, density, (image.Width, image.Height));
+
+for (int i = 0; i < asciiImage.Height; i++)
+{
+    string line = asciiImage.GetRow(i);
     Console.WriteLine(line);
 }
