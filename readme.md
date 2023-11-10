@@ -1,3 +1,0 @@
-# Ascii Art CLI
-
-## Installation
