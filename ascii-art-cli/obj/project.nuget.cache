@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "jmhweUNl69+B0h1JFQAPvXDO4CnoCuz3ESLWMkX/5+/xsBFx7XvkLTT6Cn8DwgorkLIRxUcmmhDo0ihzO8vIZA==",
+  "success": true,
+  "projectFilePath": "/home/olifrys/hobby/ascii-art/ascii-art-cli/ascii-art-cli.csproj",
+  "expectedPackageFiles": [
+    "/home/olifrys/.nuget/packages/skiasharp/2.88.6/skiasharp.2.88.6.nupkg.sha512",
+    "/home/olifrys/.nuget/packages/skiasharp.nativeassets.linux/2.88.6/skiasharp.nativeassets.linux.2.88.6.nupkg.sha512",
+    "/home/olifrys/.nuget/packages/skiasharp.nativeassets.macos/2.88.6/skiasharp.nativeassets.macos.2.88.6.nupkg.sha512",
+    "/home/olifrys/.nuget/packages/skiasharp.nativeassets.win32/2.88.6/skiasharp.nativeassets.win32.2.88.6.nupkg.sha512"
+  ],
+  "logs": []
+}
