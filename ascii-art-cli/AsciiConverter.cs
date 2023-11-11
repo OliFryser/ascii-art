@@ -45,7 +45,6 @@ public static class AsciiConverter
         return new Image { Width = newWidth, Height = newHeight, Bitmap = resizedBitmap };
     }
 
-    // The primary decides the scaling factor, the secondary scales according to that
     private static (int, int) GetScaledDimensions((int width, int height) terminal, (int width, int height) original)
     {
         // Console.WriteLine($"Terminal: {terminal.width} x {terminal.height}, Original: {original.width} x {original.height}");

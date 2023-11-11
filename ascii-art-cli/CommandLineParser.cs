@@ -6,8 +6,9 @@ public static class CommandLineParser
     public static int Contrast { get; set; }
     public static bool Invert { get; set; }
     public static bool AlternativeDensity { get; set; }
-    public static bool WebcamMode {get; private set; }
+    public static bool WebcamMode { get; private set; }
     public static int WebcamIndex { get; private set; }
+    public static int FrameRate { get; private set; } = 10;
 
     public static bool Parse(string[] args)
     {
@@ -48,8 +49,8 @@ public static class CommandLineParser
     {
         switch (flag)
         {
-            case "-f":
-            case "--filepath":
+            case "-p":
+            case "--path":
                 FilePath = value;
                 break;
             case "-d":
@@ -73,6 +74,16 @@ public static class CommandLineParser
                     {
                         WebcamIndex = result;
                         WebcamMode = true;
+                    }
+                    break;
+                }
+            case "-f":
+            case "--framerate":
+                {
+                    if (int.TryParse(value, out int result))
+                    {
+                        if (result > 0 && result <= 60)
+                            FrameRate = result;
                     }
                     break;
                 }

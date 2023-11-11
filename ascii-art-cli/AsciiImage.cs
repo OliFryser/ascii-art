@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Ascii;
@@ -14,7 +16,22 @@ public class AsciiImage
         Image[x, y] = asciiChar;
     }
 
-    public string GetRow(int i)
+    override public string ToString()
+    {
+        StringBuilder output = new();
+
+        for (int i = 0; i < Height; i++)
+        {
+            for (int j = 0; j < Width; j++)
+            {
+                output.Append(Image[j, i]);
+            }
+            output.Append('\n');
+        }
+        return output.ToString();
+    }
+
+    public StringBuilder GetRow(int i)
     {
         StringBuilder stringBuilder = new();
         for (int x = 0; x < Width; x++)
@@ -22,6 +39,6 @@ public class AsciiImage
             char c = Image[x, i];
             stringBuilder = stringBuilder.Append(c);
         }
-        return stringBuilder.ToString();
+        return stringBuilder;
     }
 }
