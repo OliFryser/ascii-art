@@ -1,18 +1,12 @@
 namespace CommandLine;
 public static class CommandLineParser
 {
-    public static string? FilePath { get; set; }
-    public static string? Density { get; set; }
-    public static int Contrast { get; set; }
-    public static bool Invert { get; set; }
-    public static bool AlternativeDensity { get; set; }
-    public static bool WebcamMode { get; private set; }
-    public static int WebcamIndex { get; private set; }
-    public static int FrameRate { get; private set; } = 10;
 
-    public static bool Parse(string[] args)
+
+    public static Params Parse(string[] args)
     {
-        if (args.Length == 0) return false;
+        Params par = new();
+
         for (int i = 0; i < args.Length; i++)
         {
             // Parse flags
@@ -20,49 +14,55 @@ public static class CommandLineParser
             {
                 if (args[i] == "-i" || args[i] == "--invert")
                 {
-                    Invert = true;
+                    par.Invert = true;
                     continue;
                 }
                 else if (args[i] == "-a" || args[i] == "--alternative")
                 {
-                    AlternativeDensity = true;
+                    if (par.CustomDensitySet) break;
+                    par.Density = par.AlternativeDensity;
+                    par.CustomDensitySet = true;
                     continue;
                 }
                 if (i + 1 >= args.Length) throw new ArgumentException($"No value for flag: {args[i]}");
-                ParseFlag(args[i++], args[i]);
+                ParseFlag(args[i++], args[i], par);
                 continue;
             }
             // Parse non flagged arguments
-            else if (FilePath is null)
+            else if (!par.CustomFilePathSet)
             {
-                FilePath = args[i];
+                par.FilePath = args[i];
             }
-            else if (Density is null)
+            else if (!par.CustomDensitySet)
             {
-                Density = args[i];
+                par.Density = args[i];
             }
 
         }
-        return true;
+        return par;
     }
-    private static void ParseFlag(string flag, string value)
+
+    private static void ParseFlag(string flag, string value, Params par)
     {
         switch (flag)
         {
             case "-p":
             case "--path":
-                FilePath = value;
+                par.FilePath = value;
+                par.CustomFilePathSet = true;
                 break;
             case "-d":
             case "--density":
-                Density = value;
+                if (par.CustomDensitySet) break;
+                par.Density = value;
+                par.CustomDensitySet = true;
                 break;
             case "-c":
             case "--contrast":
                 {
                     if (int.TryParse(value, out int result))
                     {
-                        Contrast = result;
+                        par.Contrast = result;
                     }
 
                     break;
@@ -72,8 +72,8 @@ public static class CommandLineParser
                 {
                     if (int.TryParse(value, out int result))
                     {
-                        WebcamIndex = result;
-                        WebcamMode = true;
+                        par.WebcamIndex = result;
+                        par.WebcamMode = true;
                     }
                     break;
                 }
@@ -83,7 +83,7 @@ public static class CommandLineParser
                     if (int.TryParse(value, out int result))
                     {
                         if (result > 0 && result <= 60)
-                            FrameRate = result;
+                            par.FrameRate = result;
                     }
                     break;
                 }
