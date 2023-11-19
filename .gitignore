@@ -413,7 +413,10 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Private Images
-resources/
+resources/*
+
+# Include baby
+!resources/baby.jpg
 
 # Created by https://www.toptal.com/developers/gitignore/api/dotnetcore
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotnetcore
